@@ -1,0 +1,409 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BibliotecaApi</name>
+    </assembly>
+    <members>
+        <member name="T:BibliotecaApi.Controllers.AutoresController">
+            <summary>
+            Gerencia operações relacionadas aos autores da biblioteca.
+            </summary>
+        </member>
+        <member name="M:BibliotecaApi.Controllers.AutoresController.ObterTodos">
+            <summary>
+            Lista todos os autores cadastrados.
+            </summary>
+            <returns>Lista de autores.</returns>
+            <response code="200">Retorna a lista de autores.</response>
+        </member>
+        <member name="M:BibliotecaApi.Controllers.AutoresController.ObterPorId(System.Int32)">
+            <summary>
+            Obtém um autor específico pelo ID.
+            </summary>
+            <param name="id">Identificador do autor.</param>
+            <returns>Autor encontrado.</returns>
+            <response code="200">Autor encontrado com sucesso.</response>
+            <response code="404">Autor não encontrado.</response>
+        </member>
+        <member name="M:BibliotecaApi.Controllers.AutoresController.Criar(BibliotecaApi.Models.Autor)">
+            <summary>
+            Cria um novo autor.
+            </summary>
+            <param name="autor">Dados do autor a ser criado.</param>
+            <returns>Autor criado.</returns>
+            <response code="201">Autor criado com sucesso.</response>
+            <response code="400">Dados inválidos.</response>
+        </member>
+        <member name="M:BibliotecaApi.Controllers.AutoresController.Atualizar(System.Int32,BibliotecaApi.Models.Autor)">
+            <summary>
+            Atualiza os dados de um autor existente.
+            </summary>
+            <param name="id">ID do autor.</param>
+            <param name="autor">Novos dados do autor.</param>
+            <returns>Sem conteúdo em caso de sucesso.</returns>
+            <response code="204">Autor atualizado com sucesso.</response>
+            <response code="404">Autor não encontrado.</response>
+        </member>
+        <member name="M:BibliotecaApi.Controllers.AutoresController.Remover(System.Int32)">
+            <summary>
+            Remove um autor do sistema.
+            </summary>
+            <param name="id">ID do autor a ser removido.</param>
+            <returns>Sem conteúdo em caso de sucesso.</returns>
+            <response code="204">Autor removido com sucesso.</response>
+            <response code="404">Autor não encontrado.</response>
+        </member>
+        <member name="T:BibliotecaApi.Controllers.EmprestimosController">
+            <summary>
+            Gerencia os empréstimos de livros da biblioteca.
+            </summary>
+        </member>
+        <member name="M:BibliotecaApi.Controllers.EmprestimosController.ObterTodos">
+            <summary>
+            Lista todos os empréstimos realizados.
+            </summary>
+            <returns>Lista de empréstimos.</returns>
+            <response code="200">Retorna todos os empréstimos.</response>
+        </member>
+        <member name="M:BibliotecaApi.Controllers.EmprestimosController.ObterPorId(System.Int32)">
+            <summary>
+            Obtém um empréstimo pelo ID.
+            </summary>
+            <param name="id">Identificador do empréstimo.</param>
+            <returns>Empréstimo encontrado.</returns>
+            <response code="200">Empréstimo encontrado.</response>
+            <response code="404">Empréstimo não encontrado.</response>
+        </member>
+        <member name="M:BibliotecaApi.Controllers.EmprestimosController.Criar(BibliotecaApi.Models.Emprestimo)">
+             <summary>
+             Realiza um novo empréstimo de livro.
+             </summary>
+             <remarks>
+             O livro deve estar disponível para empréstimo.
+             Caso contrário, será retornado um erro de conflito.
+            
+             Exemplo de requisição:
+            
+                 POST /api/emprestimos
+                 {
+                     "livroId": 1,
+                     "nomeUsuario": "João Silva"
+                 }
+            
+             </remarks>
+             <param name="emprestimo">Dados do empréstimo.</param>
+             <returns>Empréstimo criado.</returns>
+             <response code="201">Empréstimo criado com sucesso.</response>
+             <response code="400">Dados inválidos.</response>
+             <response code="409">Livro indisponível ou não encontrado.</response>
+        </member>
+        <member name="M:BibliotecaApi.Controllers.EmprestimosController.Devolver(System.Int32)">
+            <summary>
+            Realiza a devolução de um livro emprestado.
+            </summary>
+            <param name="id">ID do empréstimo.</param>
+            <returns>Mensagem de sucesso com os dados atualizados.</returns>
+            <response code="200">Livro devolvido com sucesso.</response>
+            <response code="404">Empréstimo não encontrado ou já devolvido.</response>
+        </member>
+        <member name="T:BibliotecaApi.Controllers.LivrosController">
+            <summary>
+            Gerencia os livros do acervo da biblioteca.
+            </summary>
+        </member>
+        <member name="M:BibliotecaApi.Controllers.LivrosController.ObterTodos(System.Int32,System.Int32)">
+            <summary>
+            Lista todos os livros com paginação.
+            </summary>
+            <param name="pagina">Número da página (padrão: 1).</param>
+            <param name="tamanhoPagina">Quantidade de itens por página (máximo: 50).</param>
+            <returns>Lista paginada de livros.</returns>
+            <response code="200">Retorna a lista de livros paginada.</response>
+        </member>
+        <member name="M:BibliotecaApi.Controllers.LivrosController.ObterPorId(System.Int32)">
+            <summary>
+            Obtém um livro pelo ID.
+            </summary>
+            <param name="id">Identificador do livro.</param>
+            <returns>Livro encontrado.</returns>
+            <response code="200">Livro encontrado.</response>
+            <response code="404">Livro não encontrado.</response>
+        </member>
+        <member name="M:BibliotecaApi.Controllers.LivrosController.Buscar(System.String,System.String,System.Nullable{System.Int32})">
+            <summary>
+            Busca livros com base em filtros opcionais.
+            </summary>
+            <param name="titulo">Título do livro (opcional).</param>
+            <param name="genero">Gênero literário (opcional).</param>
+            <param name="autorId">ID do autor (opcional).</param>
+            <returns>Lista de livros que atendem aos critérios.</returns>
+            <response code="200">Lista de livros filtrados.</response>
+        </member>
+        <member name="M:BibliotecaApi.Controllers.LivrosController.Criar(BibliotecaApi.Models.Livro)">
+            <summary>
+            Cadastra um novo livro.
+            </summary>
+            <param name="livro">Dados do livro a ser cadastrado.</param>
+            <returns>Livro criado.</returns>
+            <response code="201">Livro criado com sucesso.</response>
+            <response code="400">Dados inválidos.</response>
+        </member>
+        <member name="M:BibliotecaApi.Controllers.LivrosController.Atualizar(System.Int32,BibliotecaApi.Models.Livro)">
+            <summary>
+            Atualiza os dados de um livro existente.
+            </summary>
+            <param name="id">ID do livro.</param>
+            <param name="livro">Novos dados do livro.</param>
+            <returns>Sem conteúdo em caso de sucesso.</returns>
+            <response code="204">Livro atualizado com sucesso.</response>
+            <response code="404">Livro não encontrado.</response>
+        </member>
+        <member name="M:BibliotecaApi.Controllers.LivrosController.Remover(System.Int32)">
+            <summary>
+            Remove um livro do sistema.
+            </summary>
+            <param name="id">ID do livro a ser removido.</param>
+            <returns>Sem conteúdo em caso de sucesso.</returns>
+            <response code="204">Livro removido com sucesso.</response>
+            <response code="404">Livro não encontrado.</response>
+        </member>
+        <member name="T:BibliotecaApi.Data.BibliotecaRepository">
+            <summary>
+            Repositório em memória para fins didáticos.
+            Em produção, seria substituído por Entity Framework + banco de dados.
+            </summary>
+        </member>
+        <member name="T:BibliotecaApi.Models.Autor">
+            <summary>
+            Representa um autor de livros no sistema da biblioteca.
+            </summary>
+        </member>
+        <member name="P:BibliotecaApi.Models.Autor.Id">
+            <summary>
+            Identificador único do autor.
+            </summary>
+            <example>1</example>
+        </member>
+        <member name="P:BibliotecaApi.Models.Autor.Nome">
+            <summary>
+            Nome completo do autor.
+            </summary>
+            <example>Machado de Assis</example>
+        </member>
+        <member name="P:BibliotecaApi.Models.Autor.Pais">
+            <summary>
+            País de origem do autor.
+            </summary>
+            <example>Brasil</example>
+        </member>
+        <member name="P:BibliotecaApi.Models.Autor.Biografia">
+            <summary>
+            Biografia resumida do autor.
+            </summary>
+            <example>Escritor brasileiro considerado um dos maiores nomes da literatura.</example>
+        </member>
+        <member name="P:BibliotecaApi.Models.Autor.Livros">
+            <summary>
+            Lista de livros escritos pelo autor.
+            </summary>
+        </member>
+        <member name="T:BibliotecaApi.Models.Emprestimo">
+            <summary>
+            Representa o empréstimo de um livro para um usuário.
+            </summary>
+        </member>
+        <member name="P:BibliotecaApi.Models.Emprestimo.Id">
+            <summary>
+            Identificador único do empréstimo.
+            </summary>
+            <example>1</example>
+        </member>
+        <member name="P:BibliotecaApi.Models.Emprestimo.LivroId">
+            <summary>
+            Identificador do livro que está sendo emprestado.
+            </summary>
+            <example>10</example>
+        </member>
+        <member name="P:BibliotecaApi.Models.Emprestimo.NomeUsuario">
+            <summary>
+            Nome do usuário que realizou o empréstimo.
+            </summary>
+            <example>João Silva</example>
+        </member>
+        <member name="P:BibliotecaApi.Models.Emprestimo.DataEmprestimo">
+            <summary>
+            Data em que o empréstimo foi realizado.
+            </summary>
+            <example>2026-04-22T10:00:00Z</example>
+        </member>
+        <member name="P:BibliotecaApi.Models.Emprestimo.DataDevolucaoPrevista">
+            <summary>
+            Data prevista para devolução do livro (14 dias após o empréstimo).
+            </summary>
+            <example>2026-05-06T10:00:00Z</example>
+        </member>
+        <member name="P:BibliotecaApi.Models.Emprestimo.DataDevolucaoEfetiva">
+            <summary>
+            Data em que o livro foi realmente devolvido.
+            </summary>
+            <example>2026-05-05T15:30:00Z</example>
+        </member>
+        <member name="P:BibliotecaApi.Models.Emprestimo.Status">
+            <summary>
+            Situação atual do empréstimo.
+            </summary>
+            <example>Ativo</example>
+        </member>
+        <member name="T:BibliotecaApi.Models.StatusEmprestimo">
+            <summary>
+            Define os possíveis estados de um empréstimo.
+            </summary>
+        </member>
+        <member name="F:BibliotecaApi.Models.StatusEmprestimo.Ativo">
+            <summary>
+            Empréstimo em andamento.
+            </summary>
+        </member>
+        <member name="F:BibliotecaApi.Models.StatusEmprestimo.Devolvido">
+            <summary>
+            Livro já foi devolvido.
+            </summary>
+        </member>
+        <member name="F:BibliotecaApi.Models.StatusEmprestimo.Atrasado">
+            <summary>
+            Prazo de devolução foi ultrapassado.
+            </summary>
+        </member>
+        <member name="T:BibliotecaApi.Models.Livro">
+            <summary>
+            Representa um livro disponível no acervo da biblioteca.
+            </summary>
+        </member>
+        <member name="P:BibliotecaApi.Models.Livro.Id">
+            <summary>
+            Identificador único do livro.
+            </summary>
+            <example>1</example>
+        </member>
+        <member name="P:BibliotecaApi.Models.Livro.Titulo">
+            <summary>
+            Título do livro.
+            </summary>
+            <example>Dom Casmurro</example>
+        </member>
+        <member name="P:BibliotecaApi.Models.Livro.Isbn">
+            <summary>
+            Código ISBN do livro.
+            </summary>
+            <example>978-85-359-0277-5</example>
+        </member>
+        <member name="P:BibliotecaApi.Models.Livro.AnoPublicacao">
+            <summary>
+            Ano de publicação do livro.
+            </summary>
+            <example>1899</example>
+        </member>
+        <member name="P:BibliotecaApi.Models.Livro.Genero">
+            <summary>
+            Gênero literário do livro.
+            </summary>
+            <example>Romance</example>
+        </member>
+        <member name="P:BibliotecaApi.Models.Livro.AutorId">
+            <summary>
+            Identificador do autor do livro.
+            </summary>
+            <example>1</example>
+        </member>
+        <member name="P:BibliotecaApi.Models.Livro.Disponivel">
+            <summary>
+            Indica se o livro está disponível para empréstimo.
+            </summary>
+            <example>true</example>
+        </member>
+        <member name="T:BibliotecaApi.Models.RespostaPaginada`1">
+            <summary>
+            Representa uma resposta paginada para listas de dados.
+            </summary>
+            <typeparam name="T">Tipo dos itens retornados na lista.</typeparam>
+        </member>
+        <member name="P:BibliotecaApi.Models.RespostaPaginada`1.Itens">
+            <summary>
+            Lista de itens retornados na página atual.
+            </summary>
+        </member>
+        <member name="P:BibliotecaApi.Models.RespostaPaginada`1.Pagina">
+            <summary>
+            Número da página atual.
+            </summary>
+            <example>1</example>
+        </member>
+        <member name="P:BibliotecaApi.Models.RespostaPaginada`1.TamanhoPagina">
+            <summary>
+            Quantidade de itens por página.
+            </summary>
+            <example>10</example>
+        </member>
+        <member name="P:BibliotecaApi.Models.RespostaPaginada`1.TotalItens">
+            <summary>
+            Total de itens disponíveis no sistema.
+            </summary>
+            <example>100</example>
+        </member>
+        <member name="P:BibliotecaApi.Models.RespostaPaginada`1.TotalPaginas">
+            <summary>
+            Total de páginas calculado com base no número de itens e tamanho da página.
+            </summary>
+            <example>10</example>
+        </member>
+        <member name="T:Program">
+            <summary>
+            Auto-generated public partial Program class for top-level statement apps.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.OpenApi.Generated.DocumentationCommentIdHelper.CreateDocumentationId(System.Type)">
+            <summary>
+            Generates a documentation comment ID for a type.
+            Example: T:Namespace.Outer+Inner`1 becomes T:Namespace.Outer.Inner`1
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.OpenApi.Generated.DocumentationCommentIdHelper.CreateDocumentationId(System.Reflection.PropertyInfo)">
+            <summary>
+            Generates a documentation comment ID for a property.
+            Example: P:Namespace.ContainingType.PropertyName or for an indexer P:Namespace.ContainingType.Item(System.Int32)
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.OpenApi.Generated.DocumentationCommentIdHelper.CreateDocumentationId(System.Type,System.String)">
+            <summary>
+            Generates a documentation comment ID for a property given its container type and property name.
+            Example: P:Namespace.ContainingType.PropertyName
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.OpenApi.Generated.DocumentationCommentIdHelper.CreateDocumentationId(System.Reflection.MethodInfo)">
+            <summary>
+            Generates a documentation comment ID for a method (or constructor).
+            For example:
+              M:Namespace.ContainingType.MethodName(ParamType1,ParamType2)~ReturnType
+              M:Namespace.ContainingType.#ctor(ParamType)
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.OpenApi.Generated.DocumentationCommentIdHelper.GetTypeDocId(System.Type,System.Boolean,System.Boolean)">
+            <summary>
+            Generates a documentation ID string for a type.
+            This method handles nested types (replacing '+' with '.'),
+            generic types, arrays, pointers, by-ref types, and generic parameters.
+            The <paramref name="includeGenericArguments"/> flag controls whether
+            constructed generic type arguments are emitted, while <paramref name="omitGenericArity"/>
+            controls whether the generic arity marker (e.g. "`1") is appended.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.OpenApi.Generated.DocumentationCommentIdHelper.NormalizeDocId(System.String)">
+            <summary>
+            Normalizes a documentation comment ID to match the compiler-style format.
+            Strips the return type suffix for ordinary methods but retains it for conversion operators.
+            </summary>
+            <param name="docId">The documentation comment ID to normalize.</param>
+            <returns>The normalized documentation comment ID.</returns>
+        </member>
+    </members>
+</doc>
