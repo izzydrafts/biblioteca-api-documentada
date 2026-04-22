@@ -2,12 +2,14 @@ using BibliotecaApi.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Repositório em memória (Singleton para manter dados entre requisições)
+// Repositório em memória (Singleton)
 builder.Services.AddSingleton<BibliotecaRepository>();
 
 builder.Services.AddControllers();
 
+// Swagger/OpenAPI
 builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddSwaggerGen(options =>
 {
     options.SwaggerDoc("v1", new Microsoft.OpenApi.OpenApiInfo
@@ -22,8 +24,10 @@ builder.Services.AddSwaggerGen(options =>
         }
     });
 
+    // Inclui comentários XML no Swagger
     var xmlFilename = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFilename);
+
     if (File.Exists(xmlPath))
     {
         options.IncludeXmlComments(xmlPath);
@@ -32,10 +36,16 @@ builder.Services.AddSwaggerGen(options =>
 
 var app = builder.Build();
 
+// Swagger
 app.UseSwagger();
-app.UseSwaggerUI();
+app.UseSwaggerUI(options =>
+{
+    options.SwaggerEndpoint("/swagger/v1/swagger.json", "API da Biblioteca v1");
 
-app.UseHttpsRedirection();
+   
+    options.RoutePrefix = "swagger";
+});
+
 app.UseAuthorization();
 app.MapControllers();
 

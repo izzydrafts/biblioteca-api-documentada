@@ -36,3 +36,4 @@ C:\Users\Acer\Downloads\Biblioteca-Api-Documentada\BibliotecaApi\bin\Debug\net10
 C:\Users\Acer\Downloads\Biblioteca-Api-Documentada\BibliotecaApi\bin\Debug\net10.0\Swashbuckle.AspNetCore.SwaggerUI.dll
 C:\Users\Acer\Downloads\Biblioteca-Api-Documentada\BibliotecaApi\bin\Debug\net10.0\BibliotecaApi.xml
 C:\Users\Acer\Downloads\Biblioteca-Api-Documentada\BibliotecaApi\obj\Debug\net10.0\BibliotecaApi.xml
+C:\Users\Acer\Downloads\Biblioteca-Api-Documentada\BibliotecaApi\obj\Debug\net10.0\BibliotecaApi.sourcelink.json
