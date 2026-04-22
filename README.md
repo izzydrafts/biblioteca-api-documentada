@@ -144,21 +144,17 @@ app.UseSwaggerUI();
 
 ## Teste da API
 
-```bash
-dotnet run
-```
+Pelo Swagger -Acesse:
 
-Acesso:
-
-```
 http://localhost:5102/swagger
-```
 
-Resultados esperados:
+Depois:
+Clique em GET /api/Autores
+Clique em Try it out
+Clique em Execute
 
-* Endpoints organizados por recurso
-* Testes via “Try it out” funcionando
-* Schemas exibidos corretamente
+Pelo navegador (direto na API):
+http://localhost:5102/api/autores
 
 ---
 
@@ -166,19 +162,20 @@ Resultados esperados:
 
 ## Arquitetura geral
 
-![Arquitetura](Diagramas/arquitetura-geral.png)
+![Arquitetura](Diagramas/arquitetura-geral.png.png)
 
 ## Modelo de dados
 
-![Modelo](Diagramas/modelo-de-dados.png)
+![Modelo](Diagramas/modelo-de-dados.png.png)
 
 ## Fluxo de empréstimo
 
-![Fluxo](Diagramas/fluxo-emprestimo.png)
+![Fluxo](Diagramas/fluxo-emprestimo.png.png)
 
 ## Endpoints REST
 
-![Endpoints](Diagramas/endpoints-rest.png)
+![Endpoints](Diagramas/endpoints-rest.png.png)
+
 
 ---
 
